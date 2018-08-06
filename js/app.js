@@ -1,3 +1,5 @@
+console.log("Log");
+
 var movimientos = new Array();
 var pulsado;
 
@@ -77,4 +79,14 @@ $('.botonCarga').click(function() {
     var signature = canvas.toDataURL();
     var base64 = signature.split(",")[1];
     console.log(base64);
+});
+
+$("#file-input").change(function () {
+    var file = $("#file-input").val().replace(/.*(\/|\\)/, '');
+    console.log(file);
+    $("#fileName").text(file);
+});
+
+$("#file-input").click(function () {
+    console.log("file");
 });

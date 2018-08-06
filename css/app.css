@@ -11,3 +11,40 @@ body {
 .CanvasClass {
     background-color: #fff;
 }
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid black;
+}
+
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+    border: 1px solid black;
+}
+
+#fileName {
+    display: block;
+    margin: 5px;
+}
+    
+.content {
+    margin: 5px;
+}
+    
+.content input {
+    margin: 0 auto;
+}
+    
