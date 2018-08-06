@@ -75,4 +75,6 @@ function reWrite() {
 
 $('.botonCarga').click(function() {
     var signature = canvas.toDataURL();
+    var base64 = signature.split(",")[1];
+    console.log(base64);
 });
