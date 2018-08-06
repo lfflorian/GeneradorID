@@ -1,0 +1,13 @@
+body {
+    background: #eee;
+}
+
+.screen {
+    width: 200px; 
+    height: 200px; 
+    background: #fff;
+}
+
+.CanvasClass {
+    background-color: #fff;
+}
