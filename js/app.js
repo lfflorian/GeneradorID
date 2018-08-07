@@ -14,6 +14,12 @@ function createScreen() {
     }
     context = canvas.getContext("2d");
 
+    events();
+
+    reWrite();
+}
+
+function events() {
     $('#canvas').mousedown(function (e) {
         pulsado = true;
         movimientos.push([e.pageX - this.offsetLeft,
@@ -49,16 +55,14 @@ function createScreen() {
             false]);
         repinta();
     });
-
-    reWrite();
 }
 
 function reWrite() {
-    canvas.width = canvas.width; // Limpia el lienzo
+    canvas.width = canvas.width; 
 
-    context.strokeStyle = "#0000a0";
+    context.strokeStyle = "#2d2d4f";
     context.lineJoin = "round";
-    context.lineWidth = 6;
+    context.lineWidth = 3;
 
     for (var i = 0; i < movimientos.length; i++) {
         context.beginPath();
@@ -83,18 +87,40 @@ $('.botonCarga').click(function() {
         code: base64
     };
     var form_data=JSON.stringify(array);
+    console.log(form_data);
     $.ajax({
         url: "api/user/create.php",
         type : "POST",
         contentType : 'application/json',
         data : form_data,
         success : function(result) {
-            // product was created, go back to products list
             console.log("resultado " + result.message);
         },
         error: function(xhr, resp, text) {
-            // show error to console
             console.log(xhr, resp, text);
         }
     });
+});
+
+/**/
+
+$("#btnOption1").click(function() {
+    console.log("Funcion 1 ejecutada");
+    $("#option1").toggle(500);
+});
+
+$("#btnOption2").click(function() {
+    console.log("Funcion 1 ejecutada");
+    $("#option2").toggle(500);
+});
+
+$(".carga").on("change", function() {
+    var file = $(".carga").val().replace(/.*(\/|\\)/, '');
+    if (file =="")
+    {
+        $(".etiqueta").text("No se a seleccionado ningun archivo");
+    } else 
+    {
+        $(".etiqueta").text(file);
+    }
 });
