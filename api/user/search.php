@@ -21,7 +21,7 @@ $product->readOne();
 $product_arr = array(
     "id" =>  $product->id,
     "name" => $product->name,
-    "cpde" => $product->code,
+    "code" => $product->code,
 );
  
 // make it json format

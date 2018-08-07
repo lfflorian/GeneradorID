@@ -21,6 +21,7 @@ function createScreen() {
 
 function events() {
     $('#canvas').mousedown(function (e) {
+        console.log("Evento 1");
         pulsado = true;
         movimientos.push([e.pageX - this.offsetLeft,
         e.pageY - this.offsetTop,
@@ -29,6 +30,7 @@ function events() {
     });
     
     $('#canvas').mousemove(function (e) {
+        console.log("Evento 2");
         if (pulsado) {
             movimientos.push([e.pageX - this.offsetLeft,
             e.pageY - this.offsetTop,
@@ -38,32 +40,33 @@ function events() {
     });
     
     $('#canvas').mouseup(function (e) {
+        console.log("Evento 3");
         pulsado = false;
     });
     
     $('#canvas').mouseleave(function (e) {
+        console.log("Evento 4");
         pulsado = false;
     });
 
 
     $('#canvas').bind('touchstart', function (event) {
+        console.log("Evento 5");
         var e = event.originalEvent;
         e.preventDefault();
         pulsado = true;
         movimientos.push([e.targetTouches[0].pageX - this.offsetLeft,
         e.targetTouches[0].pageY - this.offsetTop,
             false]);
-        repinta();
+            reWrite();
     });
 }
 
 function reWrite() {
-    canvas.width = canvas.width; 
-
+    canvas.width = canvas.width;
     context.strokeStyle = "#2d2d4f";
     context.lineJoin = "round";
     context.lineWidth = 3;
-
     for (var i = 0; i < movimientos.length; i++) {
         context.beginPath();
         if (movimientos[i][2] && i) {
@@ -95,14 +98,22 @@ $('.botonCarga').click(function() {
         data : form_data,
         success : function(result) {
             console.log("resultado " + result.message);
+            $(".mensaje2").addClass("alert-success");
+            /* alert-success */
+            $(".mensaje2").text("Se a registrado el nuevo Id");
+            $(".mensaje2").css("display", "inline");
+            $(".identificador").css("display","inline");
+            $("#option2").toggle(500);
         },
         error: function(xhr, resp, text) {
             console.log(xhr, resp, text);
+            $(".mensaje2").addClass("alert-danger");
+            $(".mensaje2").text("No se pudo registrar el Id");
+            $(".mensaje2").css("display", "inline");
+            $("#option2").toggle(500);
         }
     });
 });
-
-/**/
 
 $("#btnOption1").click(function() {
     console.log("Funcion 1 ejecutada");
