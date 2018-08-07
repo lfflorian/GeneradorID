@@ -76,5 +76,25 @@ function reWrite() {
 $('.botonCarga').click(function() {
     var signature = canvas.toDataURL();
     var base64 = signature.split(",")[1];
-    console.log(base64);
+    var Name = $('#name').val();
+
+    var array = {
+        name: Name,
+        code: base64
+    };
+    var form_data=JSON.stringify(array);
+    $.ajax({
+        url: "api/user/create.php",
+        type : "POST",
+        contentType : 'application/json',
+        data : form_data,
+        success : function(result) {
+            // product was created, go back to products list
+            console.log("resultado " + result.message);
+        },
+        error: function(xhr, resp, text) {
+            // show error to console
+            console.log(xhr, resp, text);
+        }
+    });
 });
