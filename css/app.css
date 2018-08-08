@@ -33,6 +33,11 @@ body {
 
 .identificador {
     display: none;
+    margin-top: 10px;
+}
+
+.idDescarga {
+    color: #17a2b8;
 }
 
 .mensaje1 {

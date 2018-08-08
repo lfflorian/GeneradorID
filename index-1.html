@@ -9,7 +9,7 @@
     <title>Identificador Unico</title>
 </head>
 <body onload="createScreen();">
-    
+    <div id="screen"></div>
     <div class="text-center form-class border border-light col-5 p-5">
             <p class="h4 mb-4">Crear Id Único</p>
 
@@ -21,7 +21,7 @@
                     <label class="custom-file-label" for="customFileLang">Seleccionar Archivo</label>
                     <p class="etiqueta"></p>
                 </div>
-            <button class="btn btn-info btn-block my-4 botonBusqueda">Cargar</button>
+            <button class="btn btn-info btn-block my-4">Cargar</button>
             <div class="alert alert-danger mensaje1">
                 No se encuentra el id registrado
             </div>
@@ -32,18 +32,14 @@
     
         <div id="option2">
             <p>dibuja tu firma aqui: </p>
-            <div id="screen"></div>
+            
             <p>Ingresa tu nombre: </p>
             <input type="text" placeholder="Nombre" id="name" class="form-control">
             <button class="btn btn-info btn-block my-4 botonCarga">Crear</button>
-            
-            <!--<button class="btn btn-info btn-block my-4 identificador">Descargar archivo identificador</button>-->
+            <button class="btn btn-info btn-block my-4 identificador">Descargar archivo identificador</button>
         </div>
         <div class="alert alert-success mensaje2">
             Su id fue registrado
-        </div>
-        <div class="identificador">
-            <p><a class="idDescarga" >Click aqui</a> Para descargar el archivo con el codigo</p>
         </div>
     </div>
 
