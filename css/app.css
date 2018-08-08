@@ -36,6 +36,10 @@ body {
     margin-top: 10px;
 }
 
+.identificador p{
+    margin-top: 20px;
+}
+
 .idDescarga {
     color: #17a2b8;
 }

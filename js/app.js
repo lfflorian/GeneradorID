@@ -22,28 +22,16 @@ function createScreen() {
 function events() {
     $('#canvas').mousedown(function (e) {
         pulsado = true;
-        movimientos.push([e.pageX- this.offsetLeft,
-            e.pageY - this.offsetTop,
+        movimientos.push([e.offsetX,
+            e.offsetY,
             false]);
-
-        console.log("x  "+ this.offsetLeft);
-        console.log("y " + this.offsetTop);
-        console.log("Valor" + e.pageX);
-        console.log("Valor" + e.pageY);
-        console.log(movimientos);
-
-        console.log("Valor 1 " + e.clientX);
-        console.log("Valor 2 " + e.movementX);
-        console.log("Valor 3 " + e.offsetX);
-        console.log("Valor 4 " + e.pageX);
-        console.log("Valor 5 " + e.screenX);
         reWrite();
     });
     
     $('#canvas').mousemove(function (e) {
         if (pulsado) {
-            movimientos.push([e.pageX - this.offsetLeft,
-                e.pageY - this.offsetTop,
+            movimientos.push([e.offsetX,
+                e.offsetY,
                 true]);
             reWrite();
         }
@@ -88,12 +76,12 @@ function reWrite() {
     }
 }
 
-var ObBase64; 
+var base64; 
+var Name;
 $('.botonCarga').click(function() {
     var signature = canvas.toDataURL();
-    var base64 = signature.split(",")[1];
-    ObBase64 = base64;
-    var Name = $('#name').val();
+    base64 = signature.split(",")[1];
+    Name = $('#name').val();
 
     var array = {
         name: Name,
@@ -113,7 +101,7 @@ $('.botonCarga').click(function() {
             $(".mensaje2").css("display", "inline");
             $(".identificador").css("display","inline");
             $("#option2").toggle(500);
-            download("Codigo.text", base64);
+            download("Codigo-"+Name+".text", base64);
             $('.identificador').css("display", "inline");
         },
         error: function(xhr, resp, text) {
@@ -122,7 +110,7 @@ $('.botonCarga').click(function() {
             $(".mensaje2").text("No se pudo registrar el Id");
             $(".mensaje2").css("display", "inline");
             $("#option2").toggle(500);
-            download("Codigo.txt", base64);
+            download("Codigo-"+Name+".text", base64);
             $('.identificador').css("display", "inline");
         }
     });
@@ -159,12 +147,24 @@ $(".botonBusqueda").click(function () {
         console.log("Datos" + decodedData);
 
         /*llamada Ajax Para encontrar al Usuario */
+        $.ajax({
+            url: "api/user/search.php",
+            type : "POST",
+            contentType : 'application/json',
+            data : form_data,
+            success : function(result) {
+                window.location.href = "init.php";
+            },
+            error: function(xhr, resp, text) {
+                window.location.href = "init.php";
+            }
+        });
     };
     fileReader.readAsDataURL($('.carga').prop('files')[0]);
 });
 
 $('.identificador a').click(function() {
-    download("Codigo.txt",ObBase64);
+    download("Codigo-"+Name+".text", base64);
 });
 
 function download(filename, text) {
