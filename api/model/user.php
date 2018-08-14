@@ -38,18 +38,16 @@ class Product {
     }
 
     function readOne(){
-        $query = $query = "SELECT * FROM " . $this->table_name . " WHERE code = ?";
+        $query = $query = "SELECT * FROM " . $this->table_name . " WHERE code = '". $this->id . "'";
+        
         $stmt = $this->conn->prepare( $query );
      
         // bind id of product to be updated
-        $stmt->bindParam(1, $this->id);
-     
+        /*$stmt->bindParam(1, $this->id);*/
         // execute query
         $stmt->execute();
-     
         // get retrieved row
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-     
         // set values to object properties
         $this->description = $row['id'];
         $this->name = $row['name'];

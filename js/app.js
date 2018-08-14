@@ -101,7 +101,7 @@ $('.botonCarga').click(function() {
             $(".mensaje2").css("display", "inline");
             $(".identificador").css("display","inline");
             $("#option2").toggle(500);
-            download("Codigo-"+Name+".text", base64);
+            download("Codigo-"+Name+".txt", base64);
             $('.identificador').css("display", "inline");
         },
         error: function(xhr, resp, text) {
@@ -110,7 +110,7 @@ $('.botonCarga').click(function() {
             $(".mensaje2").text("No se pudo registrar el Id");
             $(".mensaje2").css("display", "inline");
             $("#option2").toggle(500);
-            download("Codigo-"+Name+".text", base64);
+            download("Codigo-"+Name+".txt", base64);
             $('.identificador').css("display", "inline");
         }
     });
@@ -140,31 +140,56 @@ $(".carga").on("change", function() {
 
 $(".botonBusqueda").click(function () {
     var fileReader = new FileReader();
+    var array = new Array();
     fileReader.onload = function () {
         var data1 = fileReader.result;
         var datosEncriptado = data1.split(",")[1];
         var decodedData = window.atob(datosEncriptado);
-        console.log("Datos" + decodedData);
-
+        array = {
+            code: decodedData
+        };
+        var form_data2 = JSON.stringify(array);
         /*llamada Ajax Para encontrar al Usuario */
         $.ajax({
             url: "api/user/search.php",
-            type : "POST",
-            contentType : 'application/json',
-            data : form_data,
+            type : "GET",
+            dataType : 'json',
+            data : array,
             success : function(result) {
-                window.location.href = "init.php";
+                //window.location.href = "init.php";
+                if (result.name == null)
+                {
+                    Mensaje1()
+                }
+                else
+                {
+                    window.location.href = "init.html?name=" + result.name;
+                }
             },
             error: function(xhr, resp, text) {
-                window.location.href = "init.php";
+                console.log(xhr + "," + resp + "," + text);
+                Mensaje1()
             }
         });
     };
     fileReader.readAsDataURL($('.carga').prop('files')[0]);
 });
 
+/* Mensaje de error para opcion 2 */
+function Mensaje1() {
+    $(".mensaje1").addClass("alert-danger");
+    $(".mensaje1").text("No se pudo encontrar el ususario solicitado");
+    $(".mensaje1").css("display", "inline");
+    $("#option1").toggle(500);
+    $('.identificador').css("display", "inline");
+}
+
+
+
+
+
 $('.identificador a').click(function() {
-    download("Codigo-"+Name+".text", base64);
+    download("Codigo-"+Name+".txt", base64);
 });
 
 function download(filename, text) {
@@ -179,3 +204,24 @@ function download(filename, text) {
   
     document.body.removeChild(element);
   }
+
+  /* Otra pagina */
+  function ShowName() {
+      var Nombre = getUrlParameter('name');
+      $('#name').text(Nombre);
+  }
+
+  var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+};

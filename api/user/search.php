@@ -8,6 +8,8 @@ header('Content-Type: application/json');
 include_once '../config/database.php';
 include_once '../model/user.php';
 
+
+
 $database = new Database();
 $db = $database->getConnection();
 
@@ -15,15 +17,15 @@ $product = new Product($db);
 
 $product->id = isset($_GET['code']) ? $_GET['code'] : die();
  
+$product->id = str_replace(" ","+",$product->id);
 // read the details of product to be edited
 $product->readOne();
  
 $product_arr = array(
-    "id" =>  $product->id,
-    "name" => $product->name,
-    "code" => $product->code,
+    "name" => $product->name
 );
  
 // make it json format
-print_r(json_encode($product_arr));
+echo json_encode($product_arr);
+
 ?>
